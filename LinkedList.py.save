@@ -4,8 +4,9 @@ Add three functions to the LinkedList.
 The "insert" function will add an element to a particular
 spot in the list.
 "delete" will delete the first element with that
-particular value."""
-
+particular value.
+Then, use "Test Run" and "Submit" to run the test cases
+at the bottom."""
 
 
 # Create Element Class
@@ -15,12 +16,13 @@ class Element(object):
         self.next = None
         self.p = 1
 
-# Create Linked List Class
+# Create Linked list Class
 class LinkedList(object):
-    # Initialize the first element (header)
+    # initialize the first element (header)
     def __init__(self, head=None):
         self.head = head
-    # Add new Element to the end of the Linked list
+
+    # add new element function
     def append(self, new_element):
         current = self.head
         if self.head:
@@ -31,7 +33,8 @@ class LinkedList(object):
         else:
             self.head = new_element
             current.next.p =current.p + 1
-    # This function returns the element at the certain position
+
+    # this function returns the element at the certain posstion
     def get_position(self, position):
         counter = 1
         current = self.head
@@ -40,10 +43,11 @@ class LinkedList(object):
         while current and counter <= position:
             if counter == position:
                 return current
-            current = current.next
+            current = curt.next
             counter += 1
         return None
-    # This function inserts a new element at the passed position
+
+    # Adding element at the 
     def insert(self, new_element, position):
         counter = 1
         current = self.head
@@ -58,7 +62,6 @@ class LinkedList(object):
             new_element.next = self.head
             self.head = new_element
 
-    # delet element by value
     def delete(self, value):
         current = self.head
         previous = None
@@ -71,35 +74,6 @@ class LinkedList(object):
             else:
                 self.head = current.next
 
-    # Insert first function
-    def insert_first(self, new_element):
-       "Insert new element as the head of the LinkedList"
-        new_element.next = self.head
-        self.head = new_element
-
-    # Delet first element function
-    def delete_first(self):
-        if self.head:
-            deleted_element = self.head
-            temp = deleted_element.next
-            self.head = temp
-            return deleted_element
-        else:
-            return None
-        
-
-# Stack Class
-class Stack(object):
-    def __init__(self,top=None):
-        self.ll = LinkedList(top)
-
-    def push(self, new_element):
-        self.ll.insert_first(new_element)
-
-    def pop(self):
-        return self.ll.delete_first()
-
-
 
 # Test cases
 # Set up some Elements
@@ -108,17 +82,27 @@ e2 = Element(2)
 e3 = Element(3)
 e4 = Element(4)
 
-# Start setting up a Stack
-stack = Stack(e1)
+# Start setting up a LinkedList
+ll = LinkedList(e1)
+ll.append(e2)
+ll.append(e3)
 
-# Test stack functionality
-stack.push(e2)
-stack.push(e3)
-print stack.pop().value
-print stack.pop().value
-print stack.pop().value
-print stack.pop()
-stack.push(e4)
-print stack.pop().value
+# Test get_position
+# Should print 3
+print ll.head.next.next.value
+# Should also print 3
+print ll.get_position(3).value
 
+# Test insert
+ll.insert(e4,3)
+# Should print 4 now
+print ll.get_position(3).value
 
+# Test delete
+ll.delete(1)
+# Should print 2 now
+print ll.get_position(1).value
+# Should print 4 now
+print ll.get_position(2).value
+# Should print 3 now
+print ll.get_position(3).value
